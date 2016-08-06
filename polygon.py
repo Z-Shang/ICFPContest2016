@@ -53,9 +53,36 @@ class RatNum(object):
         rat_num.gcd_filter()
         return rat_num
 
+    def to_num(self):
+        return self.a * 1.0 / self.b
+
     def show(self):
         print "%s/%s"%(self.a, self.b)
         return
+
+
+
+class RatPoint(object):
+    def __init__(self,
+                 rat_x_,
+                 rat_y_):
+        self.rat_x = rat_x_
+        self.rat_y = rat_y_
+
+
+def trangle_area(rat_point1, rat_point2, rat_point3):
+    """
+    """
+    x1 = rat_point1.rat_x
+    y1 = rat_point1.rat_y
+    x2 = rat_point2.rat_x
+    y2 = rat_point2.rat_y
+    x3 = rat_point3.rat_x
+    y3 = rat_point3.rat_y
+
+    return 0.5 * ((x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2).to_num())
+
+
 
 def test_ratnum():
     """
@@ -79,6 +106,19 @@ def test_ratnum():
 
     return
 
+def test_trangle_area():
+    """
+    """
+    print "[Test trangle area]"
+    p1 = RatPoint(RatNum(0, 1), RatNum(0, 1))
+    p2 = RatPoint(RatNum(1, 1), RatNum(0, 1))
+    p3 = RatPoint(RatNum(0, 1), RatNum(1, 2))
+    area = trangle_area(p1, p2, p3)
+    print area
+
+
+
 
 if __name__ == "__main__":
     test_ratnum()
+    test_trangle_area()
