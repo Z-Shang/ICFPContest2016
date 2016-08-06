@@ -69,6 +69,8 @@ class RatPoint(object):
         self.rat_x = rat_x_
         self.rat_y = rat_y_
 
+    def show(self):
+        self.rat_x.show(), self.rat_y.show()
 
 def trangle_area(rat_point1, rat_point2, rat_point3):
     """
@@ -82,6 +84,22 @@ def trangle_area(rat_point1, rat_point2, rat_point3):
 
     return 0.5 * ((x1*y2 + x2*y3 + x3*y1 - x1*y3 - x2*y1 - x3*y2).to_num())
 
+
+def symmetry_point_by_line(point1, point1_of_line, point2_of_line):
+    """
+    """
+    x1 = point1.rat_x
+    y1 = point1.rat_y
+    a1 = point1_of_line.rat_x
+    b1 = point1_of_line.rat_y
+    a2 = point2_of_line.rat_x
+    b2 = point2_of_line.rat_y
+
+    A = a1 - a2
+    B = b1 - b2
+    rat_y = -y1 - (RatNum(2,1)*a1*b2 - RatNum(2,1)*b1*a2 + RatNum(2,1)*A*B*x1) / (A*A+B*B)
+    rat_x = (B*B-A*A)/(RatNum(2,1)*A*B)*(y1+rat_y) + (b1*a2 - a1*b2)/B
+    return RatPoint(rat_x, rat_y)
 
 
 def test_ratnum():
@@ -116,9 +134,18 @@ def test_trangle_area():
     area = trangle_area(p1, p2, p3)
     print area
 
+def test_symmetry_point_by_line():
+    """
+    """
+    print "[Test symmetry point by line]"
+    origin_point = RatPoint(RatNum(0, 1), RatNum(0, 1))
+    p1 = RatPoint(RatNum(0, 1), RatNum(1, 1))
+    p2 = RatPoint(RatNum(1, 1), RatNum(0, 1))
+    symmetry_point_by_line(origin_point, p1, p2).show()
 
 
 
 if __name__ == "__main__":
     test_ratnum()
     test_trangle_area()
+    test_symmetry_point_by_line()
