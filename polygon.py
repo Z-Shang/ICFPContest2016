@@ -143,9 +143,17 @@ def test_symmetry_point_by_line():
     p2 = RatPoint(RatNum(1, 1), RatNum(0, 1))
     symmetry_point_by_line(origin_point, p1, p2).show()
 
+# Str => RatNum
+def string_to_rat(str):
+    if '/' in str:
+        tmp = str.split("/")
+        return RatNum(eval(tmp[0]), eval(tmp[1]))
+    else:
+        return RatNum(eval(str), 1)
 
 
 if __name__ == "__main__":
     test_ratnum()
     test_trangle_area()
     test_symmetry_point_by_line()
+    string_to_rat("1/2").show()
